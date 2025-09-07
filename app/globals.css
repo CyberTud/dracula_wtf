@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 26 26 26;
+    --foreground: 246 246 246;
+  }
+
+  body {
+    @apply bg-charcoal-950 text-gray-100;
+    background-image: 
+      radial-gradient(ellipse at top, rgba(127, 29, 29, 0.1), transparent),
+      radial-gradient(ellipse at bottom, rgba(69, 10, 10, 0.05), transparent);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3C/defs%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  * {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+@layer components {
+  .gauge-gradient {
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      #22c55e 0deg,
+      #84cc16 72deg,
+      #eab308 144deg,
+      #f97316 216deg,
+      #dc2626 288deg,
+      #7f1d1d 360deg
+    );
+  }
+
+  .blood-glow {
+    box-shadow: 
+      0 0 20px rgba(220, 38, 38, 0.3),
+      0 0 40px rgba(220, 38, 38, 0.1),
+      inset 0 0 20px rgba(220, 38, 38, 0.05);
+  }
+
+  .text-shadow-blood {
+    text-shadow: 
+      0 2px 10px rgba(127, 29, 29, 0.5),
+      0 4px 20px rgba(127, 29, 29, 0.3);
+  }
+
+  .noise-texture {
+    background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.65' numOctaves='4' /%3E%3C/filter%3E%3C/defs%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "functions": {
+    "app/og/route.tsx": {
+      "maxDuration": 10,
+      "memory": 1024
+    },
+    "app/api/card.png/route.tsx": {
+      "maxDuration": 10,
+      "memory": 1024
+    },
+    "app/api/analyze/route.ts": {
+      "maxDuration": 10
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/og-default.png",
+      "destination": "/og?score=50&bucket=Opportunistic&roast=Discover%20your%20vampiric%20nature"
+    }
+  ]
+}
