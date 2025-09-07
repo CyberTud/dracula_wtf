@@ -63,7 +63,7 @@ export async function GET(request: NextRequest) {
                 maxWidth: '1000px',
               }}
             >
-              ME: "{vampireQuote.substring(0, 40)}"
+              ME: &quot;{vampireQuote.substring(0, 40)}&quot;
             </div>
           </div>
 
@@ -171,7 +171,7 @@ export async function GET(request: NextRequest) {
                 padding: '0 20px',
               }}
             >
-              "{roast.substring(0, 140)}..."
+              &quot;{roast.substring(0, 140)}...&quot;
             </div>
             <div
               style={{

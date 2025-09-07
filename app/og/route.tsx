@@ -77,7 +77,7 @@ export async function GET(request: NextRequest) {
                   textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
                 }}
               >
-                YOU SAID: "{evidence ? evidence.substring(0, 60) + '...' : 'SOMETHING VAMPIRIC'}"
+                YOU SAID: &quot;{evidence ? evidence.substring(0, 60) + '...' : 'SOMETHING VAMPIRIC'}&quot;
               </div>
             </div>
           </div>
@@ -164,7 +164,7 @@ export async function GET(request: NextRequest) {
                   fontFamily: 'sans-serif',
                 }}
               >
-                "{roast.substring(0, 120)}{roast.length > 120 ? '...' : ''}"
+                &quot;{roast.substring(0, 120)}{roast.length > 120 ? '...' : ''}&quot;
               </div>
               <div
                 style={{

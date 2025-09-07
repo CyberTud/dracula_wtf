@@ -39,7 +39,7 @@ export default function CardPreview({ score, bucket, mode, roast, evidence = [] 
                 textShadow: '2px 2px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000' 
               }}
             >
-              ME: "{vampireQuote.substring(0, 50)}"
+              ME: &ldquo;{vampireQuote.substring(0, 50)}&rdquo;
             </div>
           </div>
 
@@ -84,7 +84,7 @@ export default function CardPreview({ score, bucket, mode, roast, evidence = [] 
           {/* Bottom text with roast */}
           <div className="text-center py-6 px-4 space-y-3">
             <div className="text-sm md:text-base italic text-yellow-400 max-w-3xl mx-auto px-4">
-              "{roast}"
+              &ldquo;{roast}&rdquo;
             </div>
             <div 
               className="text-xl md:text-2xl font-black uppercase"

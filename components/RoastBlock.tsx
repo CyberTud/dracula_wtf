@@ -24,8 +24,8 @@ export default function RoastBlock({ roast }: RoastBlockProps) {
     <div className="relative group">
       <div className="absolute inset-0 bg-gradient-to-r from-blood-600/20 to-blood-800/20 blur-xl"></div>
       <div className="relative bg-charcoal-900/80 backdrop-blur-sm border-2 border-blood-600/30 rounded-xl p-8 blood-glow">
-        <div className="absolute -top-4 -left-4 text-6xl opacity-20 text-blood-600">"</div>
-        <div className="absolute -bottom-4 -right-4 text-6xl opacity-20 text-blood-600 rotate-180">"</div>
+        <div className="absolute -top-4 -left-4 text-6xl opacity-20 text-blood-600">&ldquo;</div>
+        <div className="absolute -bottom-4 -right-4 text-6xl opacity-20 text-blood-600 rotate-180">&rdquo;</div>
         
         <p className="text-2xl md:text-3xl font-serif leading-relaxed text-gray-100 italic text-center">
           {roast}

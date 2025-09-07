@@ -17,7 +17,7 @@ export default function EvidenceList({ evidence }: EvidenceListProps) {
             className="flex gap-3 p-4 bg-charcoal-900/50 border border-charcoal-800 rounded-lg"
           >
             <span className="text-blood-500 flex-shrink-0">🩸</span>
-            <p className="text-gray-300 text-sm italic">"{item}"</p>
+            <p className="text-gray-300 text-sm italic">&ldquo;{item}&rdquo;</p>
           </div>
         ))}
       </div>
