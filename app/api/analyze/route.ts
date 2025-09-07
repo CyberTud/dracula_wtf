@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
       mode,
       overall_vampire_score: analysis.overall_vampire_score,
       bucket: analysis.bucket,
-      scores: analysis.scores as Record<string, number>,
+      scores: analysis.scores as unknown as Record<string, number>,
       evidence: analysis.evidence,
       roast,
       timestamp: Date.now(),

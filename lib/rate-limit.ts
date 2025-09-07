@@ -28,7 +28,8 @@ export function checkRateLimit(ip: string): boolean {
 // Clean up old entries periodically
 setInterval(() => {
   const now = Date.now()
-  for (const [ip, entry] of rateLimitMap.entries()) {
+  const entries = Array.from(rateLimitMap.entries())
+  for (const [ip, entry] of entries) {
     if (now - entry.windowStart > WINDOW_MS * 2) {
       rateLimitMap.delete(ip)
     }

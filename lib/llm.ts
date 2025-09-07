@@ -39,7 +39,7 @@ async function callAnthropic(
   text: string, 
   mode: string, 
   evidence: string[], 
-  scores: Scores,
+  scores: Scores & { overall_vampire_score: number },
   bucket: VampireBucket
 ): Promise<LLMResponse> {
   const apiKey = process.env.ANTHROPIC_API_KEY
@@ -92,7 +92,7 @@ async function callOpenAI(
   text: string,
   mode: string,
   evidence: string[],
-  scores: Scores,
+  scores: Scores & { overall_vampire_score: number },
   bucket: VampireBucket
 ): Promise<LLMResponse> {
   const apiKey = process.env.OPENAI_API_KEY
@@ -145,7 +145,7 @@ async function callOpenAI(
   }
 }
 
-function getFallbackRoast(bucket: VampireBucket, scores: Scores): LLMResponse {
+function getFallbackRoast(bucket: VampireBucket, scores: Scores & { overall_vampire_score: number }): LLMResponse {
   const roasts = FALLBACK_ROASTS[bucket]
   const index = Math.floor(Math.abs(scores.overall_vampire_score) % roasts.length)
   
