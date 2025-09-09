@@ -1,5 +1,17 @@
-import fs from 'fs/promises'
 import path from 'path'
+
+// Check if we're in a serverless environment
+const isServerless = process.env.VERCEL || process.env.NETLIFY || process.env.AWS_LAMBDA_FUNCTION_NAME
+
+// Dynamic import for fs to avoid issues in serverless
+let fs: typeof import('fs/promises') | null = null
+if (!isServerless) {
+  try {
+    fs = require('fs/promises')
+  } catch (e) {
+    console.log('File system not available - analytics will be in-memory only')
+  }
+}
 
 export interface AnalyticsEvent {
   id: string
@@ -29,8 +41,13 @@ const DATA_DIR = path.join(process.cwd(), 'data')
 const EVENTS_FILE = path.join(DATA_DIR, 'analytics-events.json')
 const STATS_FILE = path.join(DATA_DIR, 'analytics-stats.json')
 
+// In-memory storage for serverless environments
+let memoryEvents: AnalyticsEvent[] = []
+let memoryStats: AnalyticsStats | null = null
+
 // Ensure data directory exists
 async function ensureDataDir() {
+  if (!fs) return
   try {
     await fs.mkdir(DATA_DIR, { recursive: true })
   } catch (error) {
@@ -38,8 +55,12 @@ async function ensureDataDir() {
   }
 }
 
-// Read events from file
+// Read events from file or memory
 async function readEvents(): Promise<AnalyticsEvent[]> {
+  if (!fs) {
+    return memoryEvents
+  }
+  
   try {
     await ensureDataDir()
     const data = await fs.readFile(EVENTS_FILE, 'utf-8')
@@ -50,11 +71,17 @@ async function readEvents(): Promise<AnalyticsEvent[]> {
   }
 }
 
-// Write events to file
+// Write events to file or memory
 async function writeEvents(events: AnalyticsEvent[]): Promise<void> {
-  await ensureDataDir()
-  // Keep only last 10000 events to prevent file from growing too large
+  // Keep only last 10000 events to prevent memory/file from growing too large
   const trimmedEvents = events.slice(-10000)
+  
+  if (!fs) {
+    memoryEvents = trimmedEvents
+    return
+  }
+  
+  await ensureDataDir()
   await fs.writeFile(EVENTS_FILE, JSON.stringify(trimmedEvents, null, 2))
 }
 
@@ -171,12 +198,33 @@ async function updateStats(): Promise<void> {
     lastUpdated: new Date().toISOString()
   }
   
-  await ensureDataDir()
-  await fs.writeFile(STATS_FILE, JSON.stringify(stats, null, 2))
+  if (!fs) {
+    memoryStats = stats
+  } else {
+    await ensureDataDir()
+    await fs.writeFile(STATS_FILE, JSON.stringify(stats, null, 2))
+  }
 }
 
 // Get cached statistics
 export async function getStats(): Promise<AnalyticsStats> {
+  if (!fs) {
+    return memoryStats || {
+      pageViews: 0,
+      textsAnalyzed: 0,
+      totalAnalyses: [],
+      averageScore: 0,
+      scoreDistribution: [],
+      downloadCount: 0,
+      errorCount: 0,
+      errorRate: 0,
+      recentEvents: [],
+      popularModes: [],
+      dailyStats: [],
+      lastUpdated: new Date().toISOString()
+    }
+  }
+  
   try {
     await ensureDataDir()
     const data = await fs.readFile(STATS_FILE, 'utf-8')

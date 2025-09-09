@@ -5,7 +5,6 @@ import ModeSelect from '@/components/ModeSelect'
 import ScoreGauge from '@/components/ScoreGauge'
 import SubscoreBars from '@/components/SubscoreBars'
 import RoastBlock from '@/components/RoastBlock'
-import ShareActions from '@/components/ShareActions'
 import EvidenceList from '@/components/EvidenceList'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import CardPreview from '@/components/CardPreview'
@@ -225,21 +224,6 @@ export default function HomePage() {
             </div>
           )}
 
-          {/* Share Actions */}
-          <div className="py-8 border-t border-charcoal-800">
-            <h3 className="text-xl font-serif font-bold text-center text-blood-400 mb-6">
-              Share Your Vampire Score
-            </h3>
-            <ShareActions
-              shareUrl={result.share.permalink}
-              cardPngUrl={result.share.cardPngUrl}
-              score={result.overall_vampire_score}
-              roast={result.roast}
-              bucket={result.bucket}
-              mode={result.mode}
-              evidence={result.evidence}
-            />
-          </div>
 
           {/* Reset Button */}
           <div className="flex justify-center pt-8">
