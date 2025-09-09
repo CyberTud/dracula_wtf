@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -46,6 +47,25 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* Hotjar Tracking Code for Site 6515744 */}
+        <Script
+          id="hotjar"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(h,o,t,j,a,r){
+                  h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+                  h._hjSettings={hjid:6515744,hjsv:6};
+                  a=o.getElementsByTagName('head')[0];
+                  r=o.createElement('script');r.async=1;
+                  r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+                  a.appendChild(r);
+              })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+            `,
+          }}
+        />
+      </head>
       <body className="font-sans antialiased">
         <div className="min-h-screen flex flex-col">
           <header className="border-b border-charcoal-800 bg-charcoal-950/80 backdrop-blur-sm sticky top-0 z-50">
