@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { Analytics } from '@vercel/analytics/react'
 
 export const metadata: Metadata = {
   title: 'Dracula.wtf - Bloodsucker Detector',
@@ -81,7 +80,6 @@ export default function RootLayout({
             </div>
           </footer>
         </div>
-        <Analytics />
       </body>
     </html>
   )

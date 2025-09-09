@@ -1,10 +1,15 @@
 'use client'
 
-import { track } from '@vercel/analytics'
-
 export const trackEvent = (eventName: string, properties?: Record<string, any>) => {
   try {
-    track(eventName, properties)
+    // Track with our in-house analytics
+    fetch('/api/analytics/track', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ event: eventName, properties }),
+    }).catch(err => console.error('Analytics error:', err))
   } catch (error) {
     console.error('Analytics tracking error:', error)
   }

@@ -40,3 +40,6 @@ next-env.d.ts
 /public/fonts/*.ttf
 /public/fonts/*.otf
 !/public/fonts/README.md
+
+# analytics data
+/data/
