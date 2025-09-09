@@ -14,18 +14,7 @@ interface ShareActionsProps {
 }
 
 export default function ShareActions({ shareUrl, cardPngUrl, score, roast, bucket = 'Unknown', mode = 'everyday', evidence = [] }: ShareActionsProps) {
-  const [copied, setCopied] = useState(false)
   const [downloading, setDownloading] = useState(false)
-
-  const handleCopyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(shareUrl)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    } catch (err) {
-      console.error('Failed to copy:', err)
-    }
-  }
 
   const handleDownload = async () => {
     try {
@@ -67,20 +56,6 @@ export default function ShareActions({ shareUrl, cardPngUrl, score, roast, bucke
 
   return (
     <div className="flex flex-wrap justify-center gap-3">
-      <button
-        onClick={handleCopyLink}
-        className={clsx(
-          'px-6 py-3 rounded-lg transition-all duration-200 font-medium flex items-center gap-2',
-          copied
-            ? 'bg-green-600 text-white'
-            : 'bg-charcoal-800 border-2 border-charcoal-700 text-gray-300 hover:border-blood-600/50 hover:text-white'
-        )}
-        aria-label="Copy share link"
-      >
-        <span className="text-lg">🔗</span>
-        <span>{copied ? 'Copied!' : 'Copy Link'}</span>
-      </button>
-
       <button
         onClick={handleDownload}
         disabled={downloading}
