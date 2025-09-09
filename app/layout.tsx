@@ -48,22 +48,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Hotjar Tracking Code for Site 6515744 */}
+        {/* Umami Analytics */}
         <Script
-          id="hotjar"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(h,o,t,j,a,r){
-                  h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-                  h._hjSettings={hjid:6515744,hjsv:6};
-                  a=o.getElementsByTagName('head')[0];
-                  r=o.createElement('script');r.async=1;
-                  r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-                  a.appendChild(r);
-              })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-            `,
-          }}
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="521c64f3-4db0-49bd-b201-b80c377f1687"
         />
       </head>
       <body className="font-sans antialiased">
@@ -78,9 +67,6 @@ export default function RootLayout({
                   </h1>
                 </a>
                 <nav className="flex items-center space-x-4">
-                  <a href="/analytics" className="text-sm text-gray-400 hover:text-gray-200 transition-colors">
-                    Analytics
-                  </a>
                   <a href="/legal/privacy" className="text-sm text-gray-400 hover:text-gray-200 transition-colors">
                     Privacy
                   </a>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import ModeSelect from '@/components/ModeSelect'
 import ScoreGauge from '@/components/ScoreGauge'
 import SubscoreBars from '@/components/SubscoreBars'
@@ -9,8 +9,6 @@ import EvidenceList from '@/components/EvidenceList'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import CardPreview from '@/components/CardPreview'
 import { Mode } from '@/lib/rubric'
-import { analyticsEvents } from '@/lib/analytics'
-import { usePageAnalytics } from '@/hooks/usePageAnalytics'
 import clsx from 'clsx'
 
 interface AnalysisResult {
@@ -29,14 +27,11 @@ interface AnalysisResult {
 }
 
 export default function HomePage() {
-  usePageAnalytics()
-  
   const [text, setText] = useState('')
   const [mode, setMode] = useState<Mode>('everyday')
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<AnalysisResult | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const [previousMode, setPreviousMode] = useState<Mode>('everyday')
 
   const handleAnalyze = async () => {
     if (text.trim().length < 10) {
@@ -64,20 +59,10 @@ export default function HomePage() {
 
       const data = await response.json()
       setResult(data)
-      
-      // Track successful analysis
-      analyticsEvents.textAnalyzed(
-        mode,
-        text.length,
-        data.overall_vampire_score,
-        data.bucket
-      )
-      analyticsEvents.resultViewed(data.overall_vampire_score, data.bucket)
     } catch (err) {
       console.error('Analysis error:', err)
       const errorMessage = err instanceof Error ? err.message : 'Failed to analyze text. Please try again.'
       setError(errorMessage)
-      analyticsEvents.analysisError(errorMessage)
     } finally {
       setLoading(false)
     }
@@ -87,26 +72,7 @@ export default function HomePage() {
     setText('')
     setResult(null)
     setError(null)
-    analyticsEvents.resetAnalysis()
   }
-  
-  // Track mode changes
-  useEffect(() => {
-    if (mode !== previousMode) {
-      analyticsEvents.modeChanged(previousMode, mode)
-      setPreviousMode(mode)
-    }
-  }, [mode, previousMode])
-  
-  // Track text input (debounced)
-  useEffect(() => {
-    if (text.length > 0) {
-      const timer = setTimeout(() => {
-        analyticsEvents.textInput(text.length)
-      }, 1000)
-      return () => clearTimeout(timer)
-    }
-  }, [text])
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
