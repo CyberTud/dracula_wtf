@@ -59,6 +59,9 @@ export default function RootLayout({
                   </h1>
                 </a>
                 <nav className="flex items-center space-x-4">
+                  <a href="/analytics" className="text-sm text-gray-400 hover:text-gray-200 transition-colors">
+                    Analytics
+                  </a>
                   <a href="/legal/privacy" className="text-sm text-gray-400 hover:text-gray-200 transition-colors">
                     Privacy
                   </a>

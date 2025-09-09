@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import clsx from 'clsx'
+import { analyticsEvents } from '@/lib/analytics'
 
 interface ShareActionsProps {
   shareUrl: string
@@ -19,6 +20,7 @@ export default function ShareActions({ shareUrl, cardPngUrl, score, roast, bucke
   const handleDownload = async () => {
     try {
       setDownloading(true)
+      analyticsEvents.shareAction('download_card')
       
       // Build the image URL with parameters
       const params = new URLSearchParams({
